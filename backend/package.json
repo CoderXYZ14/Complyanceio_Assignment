@@ -7,6 +7,9 @@
   "repository": "www.",
   "author": "Coderxyz14",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon -r dotenv/config --experimental-json-modules src/index.js"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.7",
