@@ -66,7 +66,7 @@ const Header = () => {
               </div>
 
               {/* Auth Buttons */}
-              {isLoggedIn ? (
+              {!isLoggedIn ? (
                 <>
                   <Link to="/signin">
                     <Button

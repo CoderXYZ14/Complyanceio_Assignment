@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Header } from "./components-self";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,16 +25,16 @@ function App() {
         } else {
           showErrorToast("Access token missing. Please log in again.");
           dispatch(logout());
-          navigate("/login");
+          navigate("/");
         }
       } catch (error) {
         showErrorToast("Failed to parse user data. Please log in again.");
         dispatch(logout());
         console.error("Failed to parse user data:", error);
-        navigate("/login");
+        navigate("/");
       }
     } else {
-      navigate("/login");
+      navigate("/");
     }
   }, [dispatch, navigate]);
 

@@ -11,7 +11,7 @@ const useLogout = () => {
 
   const handleLogout = async () => {
     try {
-      const accessToken = JSON.parse(localStorage.getItem("accessToken"));
+      const accessToken = localStorage.getItem("accessToken");
       if (!accessToken) {
         console.error("No access token found.");
         return;

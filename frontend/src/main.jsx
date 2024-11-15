@@ -9,7 +9,7 @@ import store from "./store/store";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "",
     element: <App />,
     children: [
       {
