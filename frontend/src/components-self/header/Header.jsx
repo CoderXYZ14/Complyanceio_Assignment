@@ -20,9 +20,9 @@ const Header = () => {
 
   return (
     <header
-      className={`border-b transition-colors duration-200 ${
+      className={`border-b transition-colors duration-200 shadow-lg backdrop-blur-sm ${
         darkMode
-          ? "bg-gradient-to-r from-black via-gray-900 to-purple-900"
+          ? "bg-gradient-to-r from-black via-gray-900 to-purple-700"
           : "bg-gradient-to-r from-gray-100 via-blue-100 to-purple-200 shadow-sm"
       }`}
     >

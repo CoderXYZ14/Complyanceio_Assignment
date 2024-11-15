@@ -1,5 +1,7 @@
-const Signup = () => {
-  return <div>Signup</div>;
+import { Signin as SigninComponent } from "@/components-self";
+import React from "react";
+const Signin = () => {
+  return <SigninComponent />;
 };
 
-export default Signup;
+export default Signin;
