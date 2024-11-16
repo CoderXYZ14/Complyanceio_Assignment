@@ -11,8 +11,9 @@ const generateAccessToken = async (userId) => {
     user.accessToken = accessToken;
     await user.save({ validateBeforeSave: false });
     return { accessToken };
-  } catch (err) {
-    throw new Error(500, "Error generating access token");
+  } catch (error) {
+    // Changed to throw ApiError instead of Error
+    throw new ApiError(500, "Error generating access token");
   }
 };
 
@@ -44,9 +45,10 @@ const registerUser = asyncHandler(async (req, res) => {
   if (!createdUser)
     throw new ApiError(500, "Something went wrong while registering the user");
 
+  // Fixed: Using same status code in response as in ApiResponse
   return res
     .status(201)
-    .json(new ApiResponse(200, createdUser, "User registered successfully"));
+    .json(new ApiResponse(201, createdUser, "User registered successfully"));
 });
 
 const loginUser = asyncHandler(async (req, res) => {
@@ -58,7 +60,7 @@ const loginUser = asyncHandler(async (req, res) => {
   if (!user) throw new ApiError(404, "User not found");
 
   const isPasswordValid = await user.isPasswordCorrect(password);
-  if (!isPasswordValid) throw new ApiError(401, "Invalid user credidentials");
+  if (!isPasswordValid) throw new ApiError(401, "Invalid user credentials");
 
   const { accessToken } = await generateAccessToken(user._id);
 
@@ -67,6 +69,7 @@ const loginUser = asyncHandler(async (req, res) => {
     secure: true,
   };
 
+  // Fixed: Using consistent status codes
   return res
     .status(200)
     .cookie("accessToken", accessToken, options)
@@ -94,10 +97,12 @@ const logoutUser = asyncHandler(async (req, res) => {
     },
     { new: true }
   );
+
   const options = {
     httpOnly: true,
     secure: true,
   };
+
   return res
     .status(200)
     .clearCookie("accessToken", options)
