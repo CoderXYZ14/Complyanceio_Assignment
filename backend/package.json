@@ -7,8 +7,12 @@
   "repository": "www.",
   "author": "Coderxyz14",
   "license": "MIT",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
-    "dev": "nodemon -r dotenv/config --experimental-json-modules src/index.js"
+    "start": "node src/index.js",
+    "build": "node src/index.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
