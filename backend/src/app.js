@@ -3,14 +3,17 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import userRouter from "./routes/user.routes.js";
 import dataRouter from "./routes/data.routes.js";
-
-const app = express();
 import dotenv from "dotenv";
+import path from "path";
+
 dotenv.config();
 
+const app = express();
+
+// Allowed origins for CORS
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://your-frontend-domain.com",
+  "https://your-frontend-domain.vercel.app", // Replace with your actual Vercel frontend URL
 ];
 
 app.use(
@@ -26,18 +29,29 @@ app.use(
     credentials: true,
   })
 );
+
+// Middleware
+app.use(express.json({ limit: "16kb" }));
+app.use(express.urlencoded({ extended: true, limit: "16kb" }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "public")));
+
+// Logging middleware
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
+
+// Routes
 app.get("/", (req, res) => {
   res.json({ message: "API is working" });
 });
-app.use(express.json({ limit: "16kb" }));
-import path from "path";
-app.use(express.static(path.join(__dirname, "public")));
-app.use(express.urlencoded({ extended: true, limit: "16kb" }));
-app.use(cookieParser());
-app.use((req, res, next) => {
-  res.status(404).json({ error: "Route not found" });
-});
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/data", dataRouter);
+
+// Catch-all middleware for undefined routes
+app.use((req, res) => {
+  res.status(404).json({ error: "Route not found" });
+});
 
 export { app };
