@@ -13,6 +13,7 @@ const dataSchema = new Schema(
     country: {
       type: String,
       required: true,
+      createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     },
   },
   { timestamps: true }
