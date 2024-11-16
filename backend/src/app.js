@@ -5,6 +5,8 @@ import userRouter from "./routes/user.routes.js";
 import dataRouter from "./routes/data.routes.js";
 import dotenv from "dotenv";
 import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
 dotenv.config();
 
@@ -34,6 +36,9 @@ app.use(
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(cookieParser());
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 app.use(express.static(path.join(__dirname, "public")));
 
 // Logging middleware
