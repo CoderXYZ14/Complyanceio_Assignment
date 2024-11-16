@@ -22,7 +22,7 @@ const useSignin = () => {
       localStorage.setItem("userData", JSON.stringify(response.data.data));
       localStorage.setItem("accessToken", response.data.data.accessToken); // Corrected this line
       showSuccessToast("Logged in successfully!");
-      navigate("/");
+      navigate("/display");
     } catch (error) {
       showErrorToast(error);
       console.error("Error logging in:", error);

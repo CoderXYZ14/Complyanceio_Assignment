@@ -32,7 +32,7 @@ const useSignup = () => {
       localStorage.setItem("userData", JSON.stringify(loginResponse.data.data));
       localStorage.setItem("accessToken", loginResponse.data.data.accessToken);
       showSuccessToast("Account created and logged in successfully");
-      navigate("/");
+      navigate("/display");
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||

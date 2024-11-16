@@ -40,10 +40,19 @@ const Signup = () => {
   };
 
   const handleSelectChange = (field, value) => {
-    setFormData({
-      ...formData,
-      [field]: value,
-    });
+    // Clear country when role is changed to Admin
+    if (field === "role" && value === "Admin") {
+      setFormData({
+        ...formData,
+        [field]: value,
+        country: "", // Reset country when Admin is selected
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [field]: value,
+      });
+    }
   };
 
   const handleSubmit = (event) => {
@@ -103,6 +112,7 @@ const Signup = () => {
               </Label>
               <Select
                 required
+                value={formData.role}
                 onValueChange={(value) => handleSelectChange("role", value)}
               >
                 <SelectTrigger className="text-[11px] sm:text-sm h-7 sm:h-9 border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white">
@@ -115,27 +125,33 @@ const Signup = () => {
               </Select>
             </div>
 
-            {/* Country Selection */}
-            <div className="space-y-1 sm:space-y-2">
-              <Label className="text-[11px] sm:text-sm dark:text-white">
-                Country
-              </Label>
-              <Select
-                onValueChange={(value) => handleSelectChange("country", value)}
-              >
-                <SelectTrigger className="text-[11px] sm:text-sm h-7 sm:h-9 border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white">
-                  <SelectValue placeholder="Select your country" />
-                </SelectTrigger>
-                <SelectContent className="text-[11px] sm:text-sm dark:bg-gray-800 dark:border-gray-700">
-                  {countryData.map((country) => (
-                    <SelectItem key={country.code} value={country.code}>
-                      <span className="mr-1">{country.emoji}</span>
-                      {country.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+            {/* Country Selection - Only show if role is not Admin */}
+            {formData.role === "Viewer" && (
+              <div className="space-y-1 sm:space-y-2">
+                <Label className="text-[11px] sm:text-sm dark:text-white">
+                  Country
+                </Label>
+                <Select
+                  required
+                  value={formData.country}
+                  onValueChange={(value) =>
+                    handleSelectChange("country", value)
+                  }
+                >
+                  <SelectTrigger className="text-[11px] sm:text-sm h-7 sm:h-9 border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white">
+                    <SelectValue placeholder="Select your country" />
+                  </SelectTrigger>
+                  <SelectContent className="text-[11px] sm:text-sm dark:bg-gray-800 dark:border-gray-700">
+                    {countryData.map((country) => (
+                      <SelectItem key={country.code} value={country.code}>
+                        <span className="mr-1">{country.emoji}</span>
+                        {country.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
           </CardContent>
 
           <CardFooter className="flex-col p-3 sm:p-6">
