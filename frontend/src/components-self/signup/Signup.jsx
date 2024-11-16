@@ -128,7 +128,7 @@ const Signup = () => {
                 </SelectTrigger>
                 <SelectContent className="text-[11px] sm:text-sm dark:bg-gray-800 dark:border-gray-700">
                   {countryData.map((country) => (
-                    <SelectItem key={country.code} value={country.name}>
+                    <SelectItem key={country.code} value={country.code}>
                       <span className="mr-1">{country.emoji}</span>
                       {country.name}
                     </SelectItem>

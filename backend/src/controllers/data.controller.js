@@ -31,7 +31,7 @@ const createData = asyncHandler(async (req, res) => {
 
 const getData = asyncHandler(async (req, res) => {
   const user = req.user;
-  const { country } = req.body;
+  const { country } = req.query; // Change from req.body to req.query for GET request
 
   if (user.role === "Viewer" && country !== user.country) {
     throw new ApiError(
@@ -47,7 +47,7 @@ const getData = asyncHandler(async (req, res) => {
   return res
     .status(200)
     .json(
-      new ApiResponse(200, qas, `Data retrieved successfully for ${country}`)
+      new ApiResponse(200, data, `Data retrieved successfully for ${country}`)
     );
 });
 
@@ -87,7 +87,9 @@ const updateData = asyncHandler(async (req, res) => {
 const deleteData = asyncHandler(async (req, res) => {
   const { qaId } = req.params;
   const user = req.user;
-
+  console.log(user);
+  console.log(qaId);
+  // Only allow deletion if the user is an Admin
   if (user.role !== "Admin")
     throw new ApiError(403, "Only admins can delete Q&As");
 
