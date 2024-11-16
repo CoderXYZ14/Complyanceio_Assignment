@@ -15,7 +15,7 @@ const app = express();
 // Allowed origins for CORS
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://your-frontend-domain.vercel.app", // Replace with your actual Vercel frontend URL
+  "https://complyanceio-assignment-1.onrender.com", // Replace with your actual Vercel frontend URL
 ];
 
 app.use(
